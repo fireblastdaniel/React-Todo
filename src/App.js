@@ -2,11 +2,13 @@ import React from 'react';
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
 
+import './components/TodoComponents/Todo.css'
+
 const testList = [
   {
     task: 'Organize Garage',
     id: 123456789,
-    completed: false
+    complete: false
   },
   {
     task: 'Bake Cookies',
@@ -25,6 +27,23 @@ class App extends React.Component {
       todoList: testList
     };
   }
+
+  toggleCompleted = clickedID => {
+    const newTodoList = this.state.todoList.map( item => {
+      if(item.id === clickedID){
+        return {
+          ...item,
+          complete: !item.complete
+        };
+      } else {
+        return item;
+      }
+    });
+
+    this.setState({
+      todoList: newTodoList
+    })
+  };
 
   render() {
     return (
