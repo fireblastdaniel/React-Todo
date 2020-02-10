@@ -24,7 +24,7 @@ class App extends React.Component {
   constructor(){
     super();
     this.state = {
-      todoList: testList
+      todoList: []
     };
   }
 
@@ -45,12 +45,24 @@ class App extends React.Component {
     })
   };
 
+  addNewItem = itemName => {
+    const newItem = {
+      task: itemName,
+      id: Date.now(),
+      completed: false
+    }
+
+    this.setState({
+      todoList: [...this.state.todoList, newItem]
+    })
+  }
+
   render() {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
         <TodoList todo={this.state.todoList} toggleCompleted={this.toggleCompleted} />
-        <TodoForm />
+        <TodoForm addNewItem={this.addNewItem}/>
       </div>
     );
   }
