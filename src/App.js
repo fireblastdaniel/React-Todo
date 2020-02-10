@@ -4,19 +4,6 @@ import TodoForm from './components/TodoComponents/TodoForm';
 
 import './components/TodoComponents/Todo.css'
 
-const testList = [
-  {
-    task: 'Organize Garage',
-    id: 123456789,
-    complete: false
-  },
-  {
-    task: 'Bake Cookies',
-    id: 987654321,
-    complete: false
-  }
-]
-
 class App extends React.Component {
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
@@ -45,11 +32,19 @@ class App extends React.Component {
     })
   };
 
+  clearCompleted = e => {
+    e.preventDefault();
+    console.log(this.state.todoList)
+    const newTodoList = this.state.todoList.filter( item => item.complete === false );
+    console.log(newTodoList)
+    this.setState({ todoList: newTodoList })
+  }
+
   addNewItem = itemName => {
     const newItem = {
       task: itemName,
       id: Date.now(),
-      completed: false
+      complete: false
     }
 
     this.setState({
@@ -62,7 +57,7 @@ class App extends React.Component {
       <div>
         <h2>Welcome to your Todo App!</h2>
         <TodoList todo={this.state.todoList} toggleCompleted={this.toggleCompleted} />
-        <TodoForm addNewItem={this.addNewItem}/>
+        <TodoForm addNewItem={this.addNewItem} clearCompleted={this.clearCompleted}/>
       </div>
     );
   }
